@@ -308,17 +308,43 @@ function manualGather(resource)
 function build(item)
 {
     // Create selected building using stored resources, if enough are available.
-    
-    bIndex = buildings.indexOf(item)
-    multiple = parseInt(document.getElementById(item).innerHTML)
-    if (multiple = 0)
+
+    bIndex = buildings.indexOf(item);
+    var multiple = parseInt(document.getElementById(item).innerHTML);
+    if (multiple == 0)
     {
-        multiple = 1
+        multiple = 1;
     }
 
-    if (confirm((buildings[bIndex]*multiple) + " costs:\n" + foodCost[bIndex] + " food\n" + woodCost[bIndex] + " wood\n" + diamCost[bIndex] + " diamonds\n\n Build it?"))
+    foodVal = foodCost[bIndex] * multiple;
+    woodVal = woodCost[bIndex] * multiple;
+    diamVal = diamCost[bIndex] * multiple;
+
+    if (confirm(buildings[bIndex] + " costs:\n" + foodVal + " food\n" + woodVal + " wood\n" + diamVal + " diamonds\n\n Build it?"));
     {
 
-    }
+        var food = parseInt(document.getElementById("food").innerHTML);
+        var wood = parseInt(document.getElementById("wood").innerHTML);
+        var diam = parseInt(document.getElementById("diam").innerHTML);
 
+
+        if ((foodVal <= food & woodVal <= wood & diamVal <= diam))
+        {
+            document.getElementById("food").innerHTML = food - foodVal;
+            document.getElementById("wood").innerHTML = wood - woodVal;
+            document.getElementById("diam").innerHTML = diam - diamVal;
+
+            document.getElementById(item).innerHTML = parseInt(document.getElementById(item).innerHTML) +1;
+            showNote("The " + item + " has been completed.")
+        }
+        else
+        {
+            showNote("The " + item + " was not built.")
+        }
+    }
+}
+
+function showNote(text)
+{
+    document.getElementById("note").innerHTML = text
 }
