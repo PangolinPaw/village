@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="style.css">
+	<link href="tab-content/template1/tabcontent.css" rel="stylesheet" type="text/css" />
+	<script src="tab-content/tabcontent.js" type="text/javascript"></script>
+	<script src="main.js" type="text/javascript"></script>
+	<title>Village</title>
+</head>
+
+<body>	
+	<div id="title_bar" align="left" style="width: 90%; height: 55px; position: relative; margin: auto; background-color: #77A872;">
+			<div id="title" style="float: left; position: relative; margin: auto; background-color: #77A872; width: 34%; height: 10%;">
+			<h3>Title</h3>
+			</div>
+			
+			<div id="menu_icons" style="float: right; position: relative; margin: auto; z-index: 100; background-color: #77A872;">
+				<ul>
+					<li id="pause" class="menu_icon" style="display: block; padding-left: 20px; padding-right: 20px;"><img onclick="pause()" src="image\icon\pause.png" height="30px" width="30px" /></li>
+					<li id="play" class="menu_icon" style="display: none; padding-left: 20px; padding-right: 20px;"><img onclick="pause()" src="image\icon\play.png" height="25px" width="25px"/></li>
+					<li id="download" class="menu_icon" style="display: block; padding-left: 20px; padding-right: 20px;"><img onclick="" src="image\icon\download.png" height="30px" width="30px"/></li>
+					<li id="upload" class="menu_icon" style="display: block; padding-left: 20px; padding-right: 20px;"><img onclick="" src="image\icon\upload.png" height="30px" width="30px"/></li>
+				</ul>
+			</div>
+
+		</div>
+			<br />
+		<div id="main_body" align="left" style="position: relative; width: 90%; height: 300px; margin: auto; background-color: #FFFFFF;">
+			
+			<div id="stats" align="left" style="float: left; width: 24%; height: 100%; background-color: #FFFFFF; border-style: solid; border-color: #669999; border-width: 1px;">
+			<table> 
+			<tr>
+					<td><img src="image\village01.jpg" height="100px" width="100px" /></td>
+			</tr>
+			<tr>
+			<td>
+				<table>
+					<tr>
+						<td style="padding-right: 5px">Food</td>
+						<td id="food">0</td>
+                        <td id="foodIn"></td>
+					</tr>
+					<tr>
+						<td>Wood</td>
+						<td id="wood">0</td>
+                        <td id="woodIn"></td>
+					</tr>
+					<tr>
+						<td>Knowledge</td>
+						<td id="sci">0</td>
+                        <td id="sciIn"></td>
+					</tr>
+                    <tr>
+                        <td>Diamonds</td>
+                        <td id="diam">0</td>
+                        <td id="diamIn"></td>
+                    </tr>
+				</table>
+			</td>
+			</tr>
+            <tr>
+            <table style="width: 100%;">
+            <tr>
+                      <td><u>Day</u></td>      <td><u>Season</u></td>      <td><u>Year</u></td>
+            </tr>
+            <tr>
+                <td id="d">1</td><td id="m">Spring</td><td id="y">1</td>
+            </tr>
+            </table>
+            </tr>
+			</table>
+
+			</div>
+			<div id="functions" style = "position: relative; float: right; width: 74%; height: 100%; margin: auto; background-color: #FFFFFF;">
+				<ul class="tabs">
+    				<li><a href="#view1">Resources</a></li>
+    				<li><a href="#view2">Buildings</a></li>
+					<li><a href="#view3">Citizens</a></li>
+				</ul>
+				<div class="tabcontents">
+    				<div id="view1" style="height: 100%;" >
+    					<table class="button_table">
+    					<tr>
+    						<td class="button_td"><a href="#" class="myButton" onclick="manualGather('food')">Forage</a></td>
+    						<td class="button_td"><a href="#" class="myButton" onclick="manualGather('wood')">Gather wood</a></td>
+    					</tr>
+    					<tr>
+    						<td><br /></td>
+    						<td><br /><br /></td>
+    					</tr>
+    					<tr>
+    						<td><br /></td>
+    						<td><br /></td>
+    					</tr>
+    					</table>
+    				</div>
+    				<div id="view2" style="height: 150px; overflow-y: scroll;" >
+                        <table style="width: 100%">
+                        <tr>
+                            <td colspan="2" style="width: 15%">House</td>
+                            <td rowspan="2" style="width: 85%; vertical-align: top;">A basic home. Houses 2 farmer citizens.</td>
+                        </tr>
+                        <tr>
+                            <td id="house">0</td>
+                            <td><a onclick="build('house')">+</a></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="width: 15%">Cabin</td>
+                            <td rowspan="2" style="width: 85%; vertical-align: top;">A log cabin. Houses 1 woodcutter citizen.</td>
+                        </tr>
+                        <tr>
+                            <td id="cabin">0</td>
+                            <td><a onclick="build('cabin')">+</a></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="width: 15%">Pasture</td>
+                            <td rowspan="2" style="width: 85%; vertical-align: top;">An alternate food source. Reduces food consumption by x.</td>
+                        </tr>
+                        <tr>
+                            <td id="pasture">0</td>
+                            <td><a onclick="build('pasture')">+</a></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="width: 15%">School</td>
+                            <td rowspan="2" style="width: 85%; vertical-align: top;">Where citizens learn. Allows collection of the Knowledge resource.</td>
+                        </tr>
+                        <tr>
+                            <td id="school">0</td>
+                            <td><a onclick="build('school')">+</a></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="width: 15%">Market</td>
+                            <td rowspan="2" style="width: 85%; vertical-align: top;">The village's centre of trade. Travelling traders may bring wealth (Diamonds).</td>
+                        </tr>
+                        <tr>
+                            <td id="market">0</td>
+                            <td><a onclick="build('market')">+</a></td>
+                        </tr>
+                        </table>
+
+    				</div>
+    				<div id="view3" style="height: 100%;">
+    					<table id="citizens" cellpadding=10 >
+    					<tr>
+    						<td></td>
+    						<td cellpadding="100">Available</td>
+    						<td colspan="3">Farming</td>
+    						<td colspan="3">Logging</td>
+    						<td colspan="3">Studying</td>
+    					</tr>
+        				<tr>
+        					<td align="left">Farmer</td>
+        					<td id="FA" align="center">1</td>
+        					<td> <a onclick="addCit('FF', 'FA')">-</td>
+        					<td id="FF">0</td>
+        					<td><a onclick="addCit('FA', 'FF')">+</a></td>
+        					<td> <a onclick="addCit('FB', 'FA')">-</td>
+        					<td id="FB">0</td>
+        					<td><a onclick="addCit('FA', 'FB')">+</a></td>
+        					<td><a onclick="addCit('FS', 'FA')">-</td>
+        					<td id="FS">0</td>
+        					<td><a onclick="addCit('FA', 'FS')">+</a></td>
+        					
+        				</tr>
+    					<tr>
+    						<td align="left">Woodcutter</td>
+    						 <td id="BA" align="center">0</td>
+        					<td><a onclick="addCit('BF', 'BA')">-</td>
+        					<td id="BF">0</td>
+        					<td><a onclick="addCit('BA', 'BF')">+</a></td>
+        					<td><a onclick="addCit('BB', 'BA')">-</td>
+        					<td id="BB">0</td>
+        					<td><a onclick="addCit('BA', 'BB')">+</a></td>
+        					<td><a onclick="addCit('BS', 'BA')">-</td>
+        					<td id="BS">0</td>
+        					<td><a onclick="addCit('BA', 'BS')">+</a></td>
+    					</tr>
+    					<tr>
+    						<td align="left">Elder</td>
+    						 <td id="EA" align="center">0</td>
+        					<td> <a onclick="addCit('EF', 'EA')">-</td>
+        					<td id="EF">0</td>
+        					<td><a onclick="addCit('EA', 'EF')">+</a></td>
+        					<td><a onclick="addCit('EB', 'EA')">-</td>
+        					<td id="EB">0</td>
+        					<td><a onclick="addCit('EA', 'EB')">+</a></td>
+        					<td><a onclick="addCit('ES', 'EA')">-</td>
+        					<td id="ES">0</td>
+        					<td><a onclick="addCit('EA', 'ES')">+</a></td>
+    					</tr>
+    					</table>
+    					<br />
+    				</div>
+
+    				</div>
+    				<p></p>
+    				<div style = "position: absolute; bottom: 0; width: 100%; height: 70px; margin: auto; background-color: #FFFFFF; border-style: solid; border-color: #669999; border-width: 1px;">
+						
+						<p id="note">Notifications and events are shown here</p>
+					</div>
+
+				</div>
+
+		</div>
+		<div id="footer" align="left" style="width: 90%; height: 25px; margin: auto; background-color: #77A872;">
+		<ul>
+				<li  class="menu_icon" style="padding-right: 100px; padding-left: 10px">Help</li>
+				<li class="menu_icon" style="padding-right: 100px; padding-left: 10px" >Source</li>
+		</ul>
+		</div>
+</body>
+
+</html>
