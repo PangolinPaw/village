@@ -61,6 +61,7 @@ function calendar()
         day.innerHTML = currentDay +1;
 
         foodUse(); // Calculate food consumption
+        checkHomes(); // Increse population to match homes built
 
         if (day.innerHTML > 29)
         {
@@ -132,8 +133,6 @@ function foodIncome()
             document.getElementById("foodIn").innerHTML = ">>>";
             break;
     }
-    
-
 }
 
 function woodIncome()
@@ -154,7 +153,7 @@ function woodIncome()
 
     if (buildingF || buildingB || buildingE) // Only increment if at least one citizen is logging
     {
-        document.getElementById("woodIn").innerHTML = ">>";
+        
 
         if ((window.timeCount + buildingF + buildingB + buildingE) > 9)
         {
@@ -166,6 +165,33 @@ function woodIncome()
                 window.timeCount=0;
             }
         }
+    }
+    var woodIncome = Math.round((buildingF + (buildingB/2) + buildingE)/census("ALL")*10);
+    switch (woodIncome)
+    {
+        case 0:
+        default:
+            document.getElementById("woodIn").innerHTML = "";
+            break;
+
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+            document.getElementById("woodIn").innerHTML = ">";
+            break;
+
+        case 5:
+        case 6:
+        case 7:
+            document.getElementById("woodIn").innerHTML = ">>";
+            break;
+
+        case 8:
+        case 9:
+        case 10:
+            document.getElementById("woodIn").innerHTML = ">>>";
+            break;
     }
 }
 
@@ -266,6 +292,58 @@ function foodUse()
     document.getElementById("food").innerHTML = parseInt(document.getElementById("food").innerHTML) - consumed;
 }
 
+function checkHomes()
+{
+    var house = parseInt(document.getElementById("house").innerHTML);
+    var cabin = parseInt(document.getElementById("cabin").innerHTML);
+    var woodcutters = census("WOODCUTTERS");
+    var newCount = 0
+
+    var change = cabin - woodcutters;
+    if (change > 0)
+    {
+        document.getElementById("BA").innerHTML = parseInt(document.getElementById("BA").innerHTML) + change;
+        newCount = newCount +1
+    }
+
+    var citizens = census("ALL");
+    var change = ((house*2) + cabin) - citizens;
+    
+
+    while(change > 0)
+    {
+        var randNum = Math.floor(Math.random()*5)+1;
+        switch(randNum)
+        {
+            case 1:
+            case 2:
+            case 3:
+            default:
+                document.getElementById("FA").innerHTML = parseInt(document.getElementById("FA").innerHTML) +1;
+                newCount = newCount +1
+                break;
+            case 4:
+                document.getElementById("BA").innerHTML = parseInt(document.getElementById("BA").innerHTML) +1;
+                newCount = newCount +1
+                break;
+            case 5:
+                document.getElementById("EA").innerHTML = parseInt(document.getElementById("EA").innerHTML) +1;
+                newCount = newCount +1
+                break;
+        }
+
+        var citizens = census("ALL");
+        var change = (house + cabin) - citizens;
+    }
+
+    if (newCount > 0)
+    {
+       showNote(newCount + " new citizen(s) arrived.") 
+    }
+    
+}
+
+
 function addCit(source, destination)
 {
     // Move 1 citizen from source cell and add it to the destination cell
@@ -346,5 +424,6 @@ function build(item)
 
 function showNote(text)
 {
-    document.getElementById("note").innerHTML = text
+    date = ("Day " + document.getElementById("d").innerHTML + " of " + document.getElementById("m").innerHTML)
+    document.getElementById("note").innerHTML = date + ": " + text
 }
