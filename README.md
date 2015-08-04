@@ -2,7 +2,7 @@
 (a JavaScript learning excercise).
 
 
-v0.2 implemented features:
+###v0.2 implemented features:
 
 HTML layout & placeholder colours/images
 Pause/play button
@@ -13,7 +13,7 @@ Building mechanic
 Calendar
 
 
-Still to implement:
+###Still to implement:
 
 Currency resource through trade
 Building research tree
