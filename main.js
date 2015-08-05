@@ -288,7 +288,11 @@ function foodUse()
         rate = 4;
     }
 
-    var consumed = census("ALL") * rate;
+    // Each pasture reduces total food consumption by 10%
+    var buildingReduction = 1 - (parseInt(document.getElementById("pasture").innerHTML)/10)
+    var consumed = (census("ALL") * rate) * buildingReduction;
+
+    // Reduce current food stockple by the consumed amount
     document.getElementById("food").innerHTML = parseInt(document.getElementById("food").innerHTML) - consumed;
 }
 
@@ -420,6 +424,29 @@ function build(item)
             showNote("The " + item + " was not built.")
         }
     }
+}
+
+function foodUpdate()
+{
+    // Display an update on food production & consumption
+
+    // Calculate consumption based on population & buildings
+    var buildingReduction = 1 - (parseInt(document.getElementById("pasture").innerHTML)/10)
+    var consumed = (census("ALL") * rate) * buildingReduction;
+
+    // Calculate food income based on citizen job assignment
+    var farmingF = document.getElementById("FF");
+    farmingF = parseInt(farmingF.innerHTML)*2;
+    
+    var farmingB = document.getElementById("BF");
+    farmingB = parseInt(farmingB.innerHTML);
+    
+    var farmingE = document.getElementById("EF");
+    farmingE = parseInt(farmingE.innerHTML);
+    
+    produced = (farmingF + farmingB + farmingE) * 5; // Food is produced every tick & 1 day = 5 ticks
+
+    showNote("<br />Daily food requirment: " + consumed + " units.<br />Daily food production: " + produced + " units.")
 }
 
 function showNote(text)
